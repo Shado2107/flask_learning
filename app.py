@@ -1,11 +1,22 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
+import datetime
 
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return 'Bienvenue sur l\'API Flask'
+    return render_template("index.html")
+
+
+@app.route('/heure')
+def heure():
+    date_heure = datetime.datetime.now()
+    h = date_heure.hour
+    m = date_heure.minute
+    s = date_heure.second
+    return render_template("heure.html", heure=h, minute=m, seconde=s)
+
 
 # route avec parametre dans lURL
 @app.route('/hello/<name>')
@@ -18,11 +29,12 @@ def hello(name):
 def predict():
     data = request.json # recuperer les donnees JSON
 
-    #effecxtuer une operation 
+    #effectuer une operation 
     result = {'result': data['number']* 2}
 
     return jsonify(result) #renvoyer la reponse JSON
 
 
+##lancer l'application lorsque le script est lancer avec un terminal
 if __name__ == '__main__':
     app.run(debug=True)
