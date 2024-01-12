@@ -9,6 +9,14 @@ def home():
     return render_template("index.html")
 
 
+liste_eleves = [
+    {'nom': 'Dupont', 'prenom': 'Jean', 'classe': '2A'},
+    {'nom': 'Dupont', 'prenom': 'Jeanne', 'classe': 'TG2'},
+    {'nom': 'Marchand', 'prenom': 'Marie', 'classe': '2A'},
+    {'nom': 'Martin', 'prenom': 'Adeline', 'classe': '1G1'},
+    {'nom': 'Dupont', 'prenom': 'Lucas', 'classe': '2A'}
+]
+
 @app.route('/heure')
 def heure():
     date_heure = datetime.datetime.now()
@@ -22,6 +30,13 @@ def heure():
 @app.route('/hello/<name>')
 def hello(name):
     return f'Hello, {name}!'
+
+
+@app.route('/eleves')
+def eleves():
+    request.args
+    return render_template("eleves.html", eleves= liste_eleves)
+
 
 
 #route POST pour recevoir des données en JSON et renvoyer une reponse en JSON
